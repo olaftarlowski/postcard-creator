@@ -2,6 +2,7 @@ import { Image as KonvaImage, Layer, Stage } from "react-konva";
 import useImage from "use-image";
 
 import { backgroundImg } from "../assets";
+import ImageOptionControls from "../components/ImageOptionControls";
 
 function KonvaMain() {
   const [background] = useImage(backgroundImg);
@@ -9,6 +10,7 @@ function KonvaMain() {
   return (
     <div>
       <h5>Canvas</h5>
+      <ImageOptionControls/>
       <Stage width={600} height={400}>
         <Layer>
           <KonvaImage
