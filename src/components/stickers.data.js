@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { star, plus, doge } from "../assets";
+import { star, plus, doge, backgroundImg1, backgroundImg2 } from "../assets";
 
 export const stickersData = [
   {
@@ -19,5 +19,20 @@ export const stickersData = [
     url: doge,
     width: 60,
     alt: "doge",
+  },
+];
+
+export const backgroundData = [
+  {
+    id: uuidv4(),
+    url: backgroundImg1,
+    width: 100,
+    alt: "fullbleed doge",
+  },
+  {
+    id: uuidv4(),
+    url: backgroundImg2,
+    width: 100,
+    alt: "sleeping cat",
   },
 ];
