@@ -1,5 +1,5 @@
 import { createRef, useCallback, useState } from "react";
-import { Image as KonvaImage, Layer, Stage, Text } from "react-konva";
+import { Image as KonvaImage, Layer, Stage } from "react-konva";
 import useImage from "use-image";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,18 +8,22 @@ import {
   BgOptionControls,
   ImageOptionControls,
   StickerItem,
+  TextItem,
 } from "../components";
 
 const TEXTS = [
   {
+    id: uuidv4(),
     x: 50,
     y: 50,
   },
   {
+    id: uuidv4(),
     x: 189,
     y: 256,
   },
   {
+    id: uuidv4(),
     x: 500,
     y: 240,
   },
@@ -33,8 +37,7 @@ function KonvaMain() {
 
   /////////////////////////////texts
   const [textData, setTextData] = useState(TEXTS);
-  const [isDragging, setIsDragging] = useState(false);
-  ///////////////////////////
+  /////////////////////////////
 
   const addStickerToPanel = ({ src, width, x, y }) => {
     setImagesData((currentImages) => [
@@ -94,16 +97,12 @@ function KonvaMain() {
           {imagesData.map((image, i) => {
             return (
               <StickerItem
+                key={image.id}
                 onDelete={() => {
                   const newImages = [...imagesData];
                   newImages.splice(i, 1);
                   setImagesData(newImages);
                 }}
-                onDragEnd={(event) => {
-                  image.x = event.target.x();
-                  image.y = event.target.y();
-                }}
-                key={image.id}
                 image={image}
                 isSelected={image.id === selectedID}
                 onSelect={() => {
@@ -118,23 +117,7 @@ function KonvaMain() {
             );
           })}
           {textData.map((text) => {
-            return (
-              <Text
-                text="Draggable Text xD"
-                x={text.x}
-                y={text.y}
-                draggable
-                fill={isDragging ? "green" : "black"}
-                onDragStart={() => {
-                  setIsDragging(true);
-                }}
-                onDragEnd={(e) => {
-                  text.x = e.target.x();
-                  text.y = e.target.y();
-                  setIsDragging(false);
-                }}
-              />
-            );
+            return <TextItem key={text.id} text={text} />;
           })}
         </Layer>
       </Stage>

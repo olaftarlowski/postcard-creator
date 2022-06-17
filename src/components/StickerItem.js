@@ -5,14 +5,7 @@ import { useHoverDirty, useLongPress } from "react-use";
 
 import { cancel } from "../assets";
 
-const StickerItem = ({
-  image,
-  onDelete,
-  onDragEnd,
-  isSelected,
-  onChange,
-  onSelect,
-}) => {
+const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
   const imageRef = useRef(null);
   const transformRef = useRef();
 
@@ -61,7 +54,8 @@ const StickerItem = ({
       onDragStart={() => setIsDragging(true)}
       onDragEnd={(event) => {
         setIsDragging(false);
-        onDragEnd(event);
+        image.x = event.target.x();
+        image.y = event.target.y();
       }}
     >
       <KonvaImage
@@ -111,9 +105,10 @@ const StickerItem = ({
           onTouchStart={onDelete}
           onClick={onDelete}
           image={deleteImage}
-          width={25}
-          height={25}
-          offsetX={-stickerWidth / 2 - 20}
+          width={20}
+          height={20}
+          offsetX={stickerWidth / 2 }
+          offsetY={stickerHeight / 2 }
         />
       )}
     </Group>
