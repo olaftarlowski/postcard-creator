@@ -9,6 +9,7 @@ import {
   ImageOptionControls,
   StickerItem,
   TextItem,
+  TextOptionForm,
 } from "../components";
 
 const TEXTS = [
@@ -38,6 +39,7 @@ function KonvaMain() {
   /////////////////////////////texts
   const [textData, setTextData] = useState(TEXTS);
   /////////////////////////////
+  console.log(textData);
 
   const addStickerToPanel = ({ src, width, x, y }) => {
     setImagesData((currentImages) => [
@@ -78,49 +80,52 @@ function KonvaMain() {
     <div>
       <h5>Canvas</h5>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <BgOptionControls pickBg={changeBgHandler} />
-        <ImageOptionControls pickImage={addStickerToPanel} />
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <BgOptionControls pickBg={changeBgHandler} />
+          <ImageOptionControls pickImage={addStickerToPanel} />
+        </div>
+        <Stage
+          width={600}
+          height={400}
+          onClick={canvasClickHandler}
+          onTap={canvasClickHandler}
+        >
+          <Layer>
+            <KonvaImage
+              image={background}
+              height={400}
+              width={600}
+              id="backgroundImage"
+            />
+            {imagesData.map((image, i) => {
+              return (
+                <StickerItem
+                  key={image.id}
+                  onDelete={() => {
+                    const newImages = [...imagesData];
+                    newImages.splice(i, 1);
+                    setImagesData(newImages);
+                  }}
+                  image={image}
+                  isSelected={image.id === selectedID}
+                  onSelect={() => {
+                    setSelectedID(image.id);
+                  }}
+                  onChange={(newAttrs) => {
+                    const rects = imagesData.slice();
+                    rects[i] = newAttrs;
+                    setImagesData(rects);
+                  }}
+                />
+              );
+            })}
+            {textData.map((text) => {
+              return <TextItem key={text.id} text={text} />;
+            })}
+          </Layer>
+        </Stage>
+        <TextOptionForm addNewText={setTextData}/>
       </div>
-      <Stage
-        width={600}
-        height={400}
-        onClick={canvasClickHandler}
-        onTap={canvasClickHandler}
-      >
-        <Layer>
-          <KonvaImage
-            image={background}
-            height={400}
-            width={600}
-            id="backgroundImage"
-          />
-          {imagesData.map((image, i) => {
-            return (
-              <StickerItem
-                key={image.id}
-                onDelete={() => {
-                  const newImages = [...imagesData];
-                  newImages.splice(i, 1);
-                  setImagesData(newImages);
-                }}
-                image={image}
-                isSelected={image.id === selectedID}
-                onSelect={() => {
-                  setSelectedID(image.id);
-                }}
-                onChange={(newAttrs) => {
-                  const rects = imagesData.slice();
-                  rects[i] = newAttrs;
-                  setImagesData(rects);
-                }}
-              />
-            );
-          })}
-          {textData.map((text) => {
-            return <TextItem key={text.id} text={text} />;
-          })}
-        </Layer>
-      </Stage>
     </div>
   );
 }
