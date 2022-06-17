@@ -4,9 +4,11 @@ import useImage from "use-image";
 import { v4 as uuidv4 } from "uuid";
 
 import { backgroundImg1 } from "../assets";
-import BgOptionControls from "../components/BgOptionControls";
-import ImageOptionControls from "../components/ImageOptionControls";
-import StickerItem from "../components/StickerItem";
+import {
+  BgOptionControls,
+  ImageOptionControls,
+  StickerItem,
+} from "../components";
 
 function KonvaMain() {
   const [currentBackground, setCurrentBackground] = useState(backgroundImg1);
