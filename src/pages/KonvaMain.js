@@ -12,6 +12,7 @@ function KonvaMain() {
   const [currentBackground, setCurrentBackground] = useState(backgroundImg1);
   const [background] = useImage(currentBackground);
   const [imagesData, setImagesData] = useState([]);
+  const [selectedID, setSelectedID] = useState(null);
 
   const addStickerToPanel = ({ src, width, x, y }) => {
     setImagesData((currentImages) => [
@@ -34,10 +35,11 @@ function KonvaMain() {
     });
   }, [imagesData]);
 
-  const handleCanvasClick = useCallback(
+  const canvasClickHandler = useCallback(
     (event) => {
       if (event.target.attrs.id === "backgroundImage") {
         resetAllButtons();
+        setSelectedID(null);
       }
     },
     [resetAllButtons]
@@ -52,13 +54,13 @@ function KonvaMain() {
       <h5>Canvas</h5>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <BgOptionControls pickBg={changeBgHandler} />
-        <ImageOptionControls pickImage={addStickerToPanel}/>
+        <ImageOptionControls pickImage={addStickerToPanel} />
       </div>
       <Stage
         width={600}
         height={400}
-        onClick={handleCanvasClick}
-        onTap={handleCanvasClick}
+        onClick={canvasClickHandler}
+        onTap={canvasClickHandler}
       >
         <Layer>
           <KonvaImage
@@ -79,8 +81,17 @@ function KonvaMain() {
                   image.x = event.target.x();
                   image.y = event.target.y();
                 }}
-                key={i}
+                key={image.id}
                 image={image}
+                isSelected={image.id === selectedID}
+                onSelect={() => {
+                  setSelectedID(image.id);
+                }}
+                onChange={(newAttrs) => {
+                  const rects = imagesData.slice();
+                  rects[i] = newAttrs;
+                  setImagesData(rects);
+                }}
               />
             );
           })}
