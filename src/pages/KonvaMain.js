@@ -1,5 +1,5 @@
 import { createRef, useCallback, useState } from "react";
-import { Image as KonvaImage, Layer, Stage } from "react-konva";
+import { Image as KonvaImage, Layer, Stage, Text } from "react-konva";
 import useImage from "use-image";
 import { v4 as uuidv4 } from "uuid";
 
@@ -10,11 +10,31 @@ import {
   StickerItem,
 } from "../components";
 
+const TEXTS = [
+  {
+    x: 50,
+    y: 50,
+  },
+  {
+    x: 189,
+    y: 256,
+  },
+  {
+    x: 500,
+    y: 240,
+  },
+];
+
 function KonvaMain() {
   const [currentBackground, setCurrentBackground] = useState(backgroundImg1);
   const [background] = useImage(currentBackground);
   const [imagesData, setImagesData] = useState([]);
   const [selectedID, setSelectedID] = useState(null);
+
+  /////////////////////////////texts
+  const [textData, setTextData] = useState(TEXTS);
+  const [isDragging, setIsDragging] = useState(false);
+  ///////////////////////////
 
   const addStickerToPanel = ({ src, width, x, y }) => {
     setImagesData((currentImages) => [
@@ -93,6 +113,25 @@ function KonvaMain() {
                   const rects = imagesData.slice();
                   rects[i] = newAttrs;
                   setImagesData(rects);
+                }}
+              />
+            );
+          })}
+          {textData.map((text) => {
+            return (
+              <Text
+                text="Draggable Text xD"
+                x={text.x}
+                y={text.y}
+                draggable
+                fill={isDragging ? "green" : "black"}
+                onDragStart={() => {
+                  setIsDragging(true);
+                }}
+                onDragEnd={(e) => {
+                  text.x = e.target.x();
+                  text.y = e.target.y();
+                  setIsDragging(false);
                 }}
               />
             );
