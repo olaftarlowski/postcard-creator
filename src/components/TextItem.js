@@ -15,7 +15,7 @@ const TextItem = ({ text }) => {
       y={text.y}
       draggable
       fill={text.colors}
-      // fill={isDragging ? "green" : "black"}
+      shadowBlur={isDragging ? 50 : 0}
       onDragStart={() => {
         setIsDragging(true);
       }}

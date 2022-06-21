@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import "./TextOptionForm.css";
+import { RadioInput } from "../components";
 
-const COLOR_PALLETTE = {
-  red: "#ea4335",
-  blue: "#4285f4",
-  yellow: "#fbbc05",
-  green: "#34a853",
-};
+const COLOR_INPUTS = [
+  { id: "radio-1", color: "#ea4335" },
+  { id: "radio-2", color: "#4285f4" },
+  { id: "radio-3", color: "#fbbc05" },
+  { id: "radio-4", color: "#34a853" },
+];
 
 const FONTS = ["monospace", "fantasy", "sans-serif"];
 
@@ -18,6 +18,7 @@ const TextOptionForm = ({ addNewText }) => {
     reset,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     const newID = uuidv4();
     data.id = newID;
@@ -49,47 +50,16 @@ const TextOptionForm = ({ addNewText }) => {
         })}
       />
 
-      <div className="radio-color">
-        <div className="radio-color__item">
-          <input
-            {...register("colors", { required: true })}
-            type="radio"
-            value={COLOR_PALLETTE.blue}
-            id="radio-1"
-            className="radio"
-          />
-          <label htmlFor="radio-1"></label>
-        </div>
-        <div className="radio-color__item">
-          <input
-            {...register("colors", { required: true })}
-            type="radio"
-            value={COLOR_PALLETTE.red}
-            id="radio-2"
-            className="radio"
-          />
-          <label htmlFor="radio-2"></label>
-        </div>
-        <div className="radio-color__item">
-          <input
-            {...register("colors", { required: true })}
-            type="radio"
-            value={COLOR_PALLETTE.yellow}
-            id="radio-3"
-            className="radio"
-          />
-          <label htmlFor="radio-3"></label>
-        </div>
-        <div className="radio-color__item">
-          <input
-            {...register("colors", { required: true })}
-            type="radio"
-            value={COLOR_PALLETTE.green}
-            id="radio-4"
-            className="radio"
-          />
-          <label htmlFor="radio-4"></label>
-        </div>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {COLOR_INPUTS.map((radio) => {
+          return (
+            <RadioInput
+              {...register("colors", { required: true })}
+              value={radio.color}
+              label={radio.id}
+            />
+          );
+        })}
       </div>
 
       <input type="submit" />
