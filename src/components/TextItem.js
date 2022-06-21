@@ -4,13 +4,18 @@ import { Text } from "react-konva";
 const TextItem = ({ text }) => {
   const [isDragging, setIsDragging] = useState(false);
 
+  // console.log(text)
+
   return (
     <Text
-      text="Draggable Text xD"
+      text={text.insertedText}
+      fontFamily={text.font}
+      fontSize={30}
       x={text.x}
       y={text.y}
       draggable
-      fill={isDragging ? "green" : "black"}
+      fill={text.colors}
+      // fill={isDragging ? "green" : "black"}
       onDragStart={() => {
         setIsDragging(true);
       }}

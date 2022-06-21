@@ -17,16 +17,22 @@ const TEXTS = [
     id: uuidv4(),
     x: 50,
     y: 50,
+    font: "fantasy",
+    insertedText: "ale smiszne xD",
   },
   {
     id: uuidv4(),
     x: 189,
     y: 256,
+    font: "monospace",
+    insertedText: "co nie, ten tekst da sie ruszac",
   },
   {
     id: uuidv4(),
     x: 500,
     y: 240,
+    font: "sans-serif",
+    insertedText: "sans-serif to font",
   },
 ];
 
@@ -39,7 +45,7 @@ function KonvaMain() {
   /////////////////////////////texts
   const [textData, setTextData] = useState(TEXTS);
   /////////////////////////////
-  console.log(textData);
+  // console.log(textData);
 
   const addStickerToPanel = ({ src, width, x, y }) => {
     setImagesData((currentImages) => [
@@ -124,7 +130,7 @@ function KonvaMain() {
             })}
           </Layer>
         </Stage>
-        <TextOptionForm addNewText={setTextData}/>
+        <TextOptionForm addNewText={setTextData} />
       </div>
     </div>
   );
