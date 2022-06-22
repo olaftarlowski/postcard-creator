@@ -37,7 +37,7 @@ export const backgroundData = [
   },
 ];
 
-export const cancelImgSize = 30;
+export const cancelImgSize = 24;
 
 export const TEXTS = [
   {

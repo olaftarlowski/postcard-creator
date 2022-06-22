@@ -1,4 +1,5 @@
 export { default as BgOptionControls } from "./BgOptionControls";
+export { default as CloseButton } from "./CloseButton";
 export { default as ImageOptionControls } from "./ImageOptionControls";
 export { default as RadioInput } from "./RadioInput";
 export { default as StickerItem } from "./StickerItem";

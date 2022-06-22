@@ -1,14 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Text as KonvaText,
-  Image as KonvaImage,
-  Group,
-  Transformer,
-} from "react-konva";
-import useImage from "use-image";
+import { Text as KonvaText, Group, Transformer } from "react-konva";
 import { useHoverDirty, useLongPress } from "react-use";
-import { cancel } from "../assets";
-import { cancelImgSize } from "./stickers.data";
+import { CloseButton } from "./";
 
 const TextItem = ({ text, onDelete, isSelected, onChange, onSelect }) => {
   const textRef = useRef(null);
@@ -18,8 +11,6 @@ const TextItem = ({ text, onDelete, isSelected, onChange, onSelect }) => {
   const [showDeleteButton, setShowDeleteButton] = useState(false);
 
   const isHovered = useHoverDirty(textRef);
-
-  const [deleteImage] = useImage(cancel);
 
   const onLongPress = () => {
     setShowDeleteButton(true);
@@ -94,15 +85,7 @@ const TextItem = ({ text, onDelete, isSelected, onChange, onSelect }) => {
           }}
         />
         {showDeleteButton && !isDragging && (
-          <KonvaImage
-            onTouchStart={onDelete}
-            onClick={onDelete}
-            image={deleteImage}
-            width={cancelImgSize}
-            height={cancelImgSize}
-            offsetX={-text.x + cancelImgSize}
-            offsetY={-text.y + cancelImgSize}
-          />
+          <CloseButton onDelete={onDelete} offsetX={text.x} offsetY={text.y} />
         )}
       </Group>
       {isSelected && (

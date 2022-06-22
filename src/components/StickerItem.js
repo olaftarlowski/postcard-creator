@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Image as KonvaImage, Group, Transformer } from "react-konva";
 import useImage from "use-image";
 import { useHoverDirty, useLongPress } from "react-use";
-
-import { cancel } from "../assets";
+import { CloseButton } from "./";
 
 const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
   const imageRef = useRef(null);
@@ -12,7 +11,7 @@ const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
   const isHovered = useHoverDirty(imageRef);
 
   const [stickerImage] = useImage(image.src);
-  const [deleteImage] = useImage(cancel);
+  // const [deleteImage] = useImage(cancel);
 
   const [showDeleteButton, setShowDeleteButton] = useState(false);
 
@@ -26,7 +25,6 @@ const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
   const longPressEvent = useLongPress(onLongPress, { delay: 200 });
   const [isDragging, setIsDragging] = useState(false);
 
-  const stickerWidth = image.width;
   const stickerHeight = stickerImage
     ? (image.width * stickerImage.height) / stickerImage.width
     : 0;
@@ -100,17 +98,7 @@ const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
           }}
         />
       )}
-      {showDeleteButton && !isDragging && (
-        <KonvaImage
-          onTouchStart={onDelete}
-          onClick={onDelete}
-          image={deleteImage}
-          width={20}
-          height={20}
-          offsetX={stickerWidth / 2 }
-          offsetY={stickerHeight / 2 }
-        />
-      )}
+      {showDeleteButton && !isDragging && <CloseButton onDelete={onDelete} />}
     </Group>
   );
 };
