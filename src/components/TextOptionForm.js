@@ -16,7 +16,7 @@ const TextOptionForm = ({ addNewText }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
@@ -25,7 +25,7 @@ const TextOptionForm = ({ addNewText }) => {
     addNewText((prevState) => [...prevState, data]);
     reset({ insertedText: "", colors: data.colors });
   };
-  console.log(errors);
+  // console.log(errors);
 
   return (
     <form

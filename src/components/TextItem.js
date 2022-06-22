@@ -1,30 +1,123 @@
-import React, { useState } from "react";
-import { Text } from "react-konva";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Text as KonvaText,
+  Image as KonvaImage,
+  Group,
+  Transformer,
+} from "react-konva";
+import useImage from "use-image";
+import { useHoverDirty, useLongPress } from "react-use";
+import { cancel } from "../assets";
+import { cancelImgSize } from "./stickers.data";
 
-const TextItem = ({ text }) => {
+const TextItem = ({ text, onDelete, isSelected, onChange, onSelect }) => {
+  const textRef = useRef(null);
+  const transformRef = useRef();
+
   const [isDragging, setIsDragging] = useState(false);
+  const [showDeleteButton, setShowDeleteButton] = useState(false);
 
-  // console.log(text)
+  const isHovered = useHoverDirty(textRef);
+
+  const [deleteImage] = useImage(cancel);
+
+  const onLongPress = () => {
+    setShowDeleteButton(true);
+  };
+
+  const longPressEvent = useLongPress(onLongPress, { delay: 200 });
+
+  useEffect(() => {
+    if (isHovered) {
+      setShowDeleteButton(true);
+    } else {
+      setTimeout(() => {
+        setShowDeleteButton(false);
+      }, 2000);
+    }
+
+    if (isSelected) {
+      transformRef.current.nodes([textRef.current]);
+      transformRef.current.getLayer().batchDraw();
+    }
+  }, [isHovered, isSelected]);
 
   return (
-    <Text
-      text={text.insertedText}
-      fontFamily={text.font}
-      fontSize={30}
-      x={text.x}
-      y={text.y}
-      draggable
-      fill={text.colors}
-      shadowBlur={isDragging ? 50 : 0}
-      onDragStart={() => {
-        setIsDragging(true);
-      }}
-      onDragEnd={(e) => {
-        text.x = e.target.x();
-        text.y = e.target.y();
-        setIsDragging(false);
-      }}
-    />
+    <>
+      <Group
+        draggable
+        onDragStart={() => {
+          setIsDragging(true);
+        }}
+        onDragEnd={(e) => {
+          text.x = e.target.x();
+          text.y = e.target.y();
+          setIsDragging(false);
+        }}
+        {...longPressEvent}
+        onClick={onSelect}
+        onTap={onSelect}
+        onTransformEnd={(e) => {
+          const node = textRef.current;
+          const scaleX = node.scaleX();
+          const scaleY = node.scaleY();
+          node.scaleX(1);
+          node.scaleY(1);
+          onChange({
+            ...text,
+            x: node.x(),
+            y: node.y(),
+            width: Math.max(5, node.width() * scaleX),
+            height: Math.max(node.height() * scaleY),
+          });
+        }}
+      >
+        <KonvaText
+          draggable
+          ref={textRef}
+          text={text.insertedText}
+          fontFamily={text.font}
+          fontSize={25}
+          x={text.x}
+          y={text.y}
+          width={text.width}
+          height={text.height}
+          fill={text.colors}
+          shadowBlur={isDragging ? 50 : 0}
+          onDragStart={() => {
+            setIsDragging(true);
+          }}
+          onDragEnd={(e) => {
+            text.x = e.target.x();
+            text.y = e.target.y();
+            setIsDragging(false);
+          }}
+        />
+        {showDeleteButton && !isDragging && (
+          <KonvaImage
+            onTouchStart={onDelete}
+            onClick={onDelete}
+            image={deleteImage}
+            width={cancelImgSize}
+            height={cancelImgSize}
+            offsetX={-text.x + cancelImgSize}
+            offsetY={-text.y + cancelImgSize}
+          />
+        )}
+      </Group>
+      {isSelected && (
+        <Transformer
+          ref={transformRef}
+          boundBoxFunc={(oldBox, newBox) => {
+            // limit resize
+            if (newBox.width < 5 || newBox.height < 5) {
+              return oldBox;
+            }
+            return newBox;
+          }}
+        />
+      )}
+    </>
   );
 };
 

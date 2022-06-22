@@ -11,41 +11,14 @@ import {
   TextItem,
   TextOptionForm,
 } from "../components";
-
-const TEXTS = [
-  {
-    id: uuidv4(),
-    x: 50,
-    y: 50,
-    font: "fantasy",
-    insertedText: "ale smiszne xD",
-  },
-  {
-    id: uuidv4(),
-    x: 189,
-    y: 256,
-    font: "monospace",
-    insertedText: "co nie, ten tekst da sie ruszac",
-  },
-  {
-    id: uuidv4(),
-    x: 500,
-    y: 240,
-    font: "sans-serif",
-    insertedText: "sans-serif to font",
-  },
-];
+import { TEXTS } from "../components/stickers.data";
 
 function KonvaMain() {
   const [currentBackground, setCurrentBackground] = useState(backgroundImg1);
   const [background] = useImage(currentBackground);
   const [imagesData, setImagesData] = useState([]);
   const [selectedID, setSelectedID] = useState(null);
-
-  /////////////////////////////texts
   const [textData, setTextData] = useState(TEXTS);
-  /////////////////////////////
-  // console.log(textData);
 
   const addStickerToPanel = ({ src, width, x, y }) => {
     setImagesData((currentImages) => [
@@ -107,12 +80,12 @@ function KonvaMain() {
               return (
                 <StickerItem
                   key={image.id}
+                  image={image}
                   onDelete={() => {
                     const newImages = [...imagesData];
                     newImages.splice(i, 1);
                     setImagesData(newImages);
                   }}
-                  image={image}
                   isSelected={image.id === selectedID}
                   onSelect={() => {
                     setSelectedID(image.id);
@@ -125,8 +98,28 @@ function KonvaMain() {
                 />
               );
             })}
-            {textData.map((text) => {
-              return <TextItem key={text.id} text={text} />;
+            {textData.map((text, i) => {
+              return (
+                <TextItem
+                  key={text.id}
+                  text={text}
+                  onDelete={() => {
+                    const newTexts = [...textData];
+                    newTexts.splice(i, 1);
+                    setTextData(newTexts);
+                  }}
+                  isSelected={text.id === selectedID}
+                  onSelect={() => {
+                    setSelectedID(text.id);
+                  }}
+                  onChange={(newAttrs) => {
+                    console.log(newAttrs);
+                    const rects = textData.slice();
+                    rects[i] = newAttrs;
+                    setTextData(rects);
+                  }}
+                />
+              );
             })}
           </Layer>
         </Stage>
