@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import { RadioInput } from "../components";
 
 const COLOR_INPUTS = [
-  { id: "radio-1", color: "#ea4335" },
-  { id: "radio-2", color: "#4285f4" },
+  { id: "radio-1", color: "#4285f4" },
+  { id: "radio-2", color: "#ea4335" },
   { id: "radio-3", color: "#fbbc05" },
   { id: "radio-4", color: "#34a853" },
 ];
@@ -55,6 +55,7 @@ const TextOptionForm = ({ addNewText }) => {
           return (
             <RadioInput
               {...register("colors", { required: true })}
+              key={radio.id}
               value={radio.color}
               label={radio.id}
             />
