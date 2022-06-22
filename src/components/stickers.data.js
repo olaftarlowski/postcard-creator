@@ -37,6 +37,7 @@ export const backgroundData = [
   },
 ];
 
+//change to state?
 export const cancelImgSize = 24;
 
 export const TEXTS = [
@@ -62,3 +63,16 @@ export const TEXTS = [
     insertedText: "sans-serif to font",
   },
 ];
+
+export const COLOR_INPUTS = [
+  { id: "radio-1", color: "#4285f4" },
+  { id: "radio-2", color: "#ea4335" },
+  { id: "radio-3", color: "#fbbc05" },
+  { id: "radio-4", color: "#34a853" },
+  { id: "radio-5", color: "#121212" },
+  { id: "radio-6", color: "#f7f7f7" },
+  { id: "radio-7", color: "#d502d9" },
+  { id: "radio-8", color: "#35fc3f" },
+];
+
+export const FONTS = ["monospace", "fantasy", "sans-serif"];

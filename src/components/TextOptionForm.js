@@ -1,15 +1,58 @@
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components";
 import { RadioInput } from "../components";
+import { COLOR_INPUTS, FONTS } from "./stickers.data";
 
-const COLOR_INPUTS = [
-  { id: "radio-1", color: "#4285f4" },
-  { id: "radio-2", color: "#ea4335" },
-  { id: "radio-3", color: "#fbbc05" },
-  { id: "radio-4", color: "#34a853" },
-];
+const FormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  max-width: 280px;
 
-const FONTS = ["monospace", "fantasy", "sans-serif"];
+  .form-radio {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .form-radio-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  input[type="text"],
+  select {
+    width: 100%;
+    height: 40px;
+    padding: 6px 20px;
+    font-size: 22px;
+  }
+  input[type="text"] {
+    height: 90px;
+
+    &:focus {
+      outline: 0px;
+      border: 2px solid #232323;
+    }
+  }
+  select {
+    text-transform: capitalize;
+    &:focus {
+      outline: 0px;
+      border: 2px solid #232323;
+    }
+  }
+
+  button {
+    width: 130px;
+    height: 45px;
+    padding: 6px 20px;
+    font-size: 20px;
+    color: white;
+    background-color: #000;
+    cursor: pointer;
+  }
+`;
 
 const TextOptionForm = ({ addNewText }) => {
   const {
@@ -28,10 +71,7 @@ const TextOptionForm = ({ addNewText }) => {
   // console.log(errors);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{ display: "flex", flexDirection: "column" }}
-    >
+    <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <select {...register("font")}>
         {FONTS.map((item) => (
           <option key={item} value={item}>
@@ -42,7 +82,7 @@ const TextOptionForm = ({ addNewText }) => {
       <input
         type="text"
         name="insertedText"
-        placeholder="enter some text"
+        placeholder="Enter some text"
         {...register("insertedText", {
           required: true,
           minLength: 1,
@@ -50,21 +90,22 @@ const TextOptionForm = ({ addNewText }) => {
         })}
       />
 
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {COLOR_INPUTS.map((radio) => {
-          return (
-            <RadioInput
-              {...register("colors", { required: true })}
-              key={radio.id}
-              value={radio.color}
-              label={radio.id}
-            />
-          );
-        })}
+      <div className="form-radio-wrapper">
+        <div className="form-radio">
+          {COLOR_INPUTS.map((radio) => {
+            return (
+              <RadioInput
+                {...register("colors", { required: true })}
+                key={radio.id}
+                value={radio.color}
+                label={radio.id}
+              />
+            );
+          })}
+        </div>
+        <button type="submit">Add</button>
       </div>
-
-      <input type="submit" />
-    </form>
+    </FormWrapper>
   );
 };
 

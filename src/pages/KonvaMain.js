@@ -123,7 +123,11 @@ function KonvaMain() {
             })}
           </Layer>
         </Stage>
-        <TextOptionForm addNewText={setTextData} />
+        <div>
+          <h4>Custom postcard</h4>
+          <p>Add your text</p>
+          <TextOptionForm addNewText={setTextData} />
+        </div>
       </div>
     </div>
   );
