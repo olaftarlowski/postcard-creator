@@ -82,7 +82,7 @@ function KonvaMain() {
       <h5>Canvas</h5>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <ImageControls pickBg={changeBgHandler} pickImage={addStickerToPanel} />
-        {/* <Stage
+        <Stage
           width={600}
           height={400}
           onClick={canvasClickHandler}
@@ -121,8 +121,8 @@ function KonvaMain() {
               return <TextItem key={text.id} text={text} />;
             })}
           </Layer>
-        </Stage> */}
-        {/* <TextOptionForm addNewText={setTextData}/> */}
+        </Stage>
+        <TextOptionForm addNewText={setTextData}/>
       </div>
     </div>
   );
