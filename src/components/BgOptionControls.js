@@ -1,17 +1,40 @@
 import { backgroundData } from "./stickers.data";
+import styled from "styled-components";
+
+const BgOptionControlsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  .bg-button {
+    background: transparent;
+    height: auto;
+    padding: 0;
+    border: 2px solid transparent;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      border: 2px solid #4263f5;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+`;
 
 const BgOptionControls = ({ pickBg }) => {
   return (
-    <div>
-      <h4>Click/Tap to change background</h4>
+    <BgOptionControlsWrapper>
       {backgroundData.map((bg) => {
         return (
-          <button key={bg.id} onClick={pickBg}>
+          <button className="bg-button" key={bg.id} onClick={pickBg}>
             <img alt={bg.alt} src={bg.url} width={bg.width} />
           </button>
         );
       })}
-    </div>
+    </BgOptionControlsWrapper>
   );
 };
 
