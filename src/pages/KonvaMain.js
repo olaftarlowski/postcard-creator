@@ -70,7 +70,6 @@ function KonvaMain() {
 
   const handleExport = () => {
     const uri = stageRef.current.toDataURL();
-    console.log(uri);
     downloadURI(uri, "stage-postcard.png");
   };
 
@@ -78,6 +77,7 @@ function KonvaMain() {
     <KonvaMainWrapper>
       <ImageControls pickBg={changeBgHandler} pickImage={addStickerToPanel} />
       <Stage
+        ref={stageRef}
         width={600}
         height={400}
         onClick={canvasClickHandler}
