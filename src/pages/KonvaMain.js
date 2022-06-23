@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { backgroundImg1 } from "../assets";
 import {
   BgOptionControls,
+  ImageControls,
   ImageOptionControls,
   StickerItem,
   TextItem,
@@ -39,7 +40,7 @@ function KonvaMain() {
   /////////////////////////////texts
   const [textData, setTextData] = useState(TEXTS);
   /////////////////////////////
-  console.log(textData);
+  // console.log(textData);
 
   const addStickerToPanel = ({ src, width, x, y }) => {
     setImagesData((currentImages) => [
@@ -80,11 +81,8 @@ function KonvaMain() {
     <div>
       <h5>Canvas</h5>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <BgOptionControls pickBg={changeBgHandler} />
-          <ImageOptionControls pickImage={addStickerToPanel} />
-        </div>
-        <Stage
+        <ImageControls pickBg={changeBgHandler} pickImage={addStickerToPanel} />
+        {/* <Stage
           width={600}
           height={400}
           onClick={canvasClickHandler}
@@ -123,8 +121,8 @@ function KonvaMain() {
               return <TextItem key={text.id} text={text} />;
             })}
           </Layer>
-        </Stage>
-        <TextOptionForm addNewText={setTextData}/>
+        </Stage> */}
+        {/* <TextOptionForm addNewText={setTextData}/> */}
       </div>
     </div>
   );
