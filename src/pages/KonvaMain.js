@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { createRef, useCallback, useState } from "react";
 import { Image as KonvaImage, Layer, Stage } from "react-konva";
 import useImage from "use-image";
@@ -31,6 +32,7 @@ const TEXTS = [
 ];
 
 function KonvaMain() {
+  const stageRef = useRef(null);
   const [currentBackground, setCurrentBackground] = useState(backgroundImg1);
   const [background] = useImage(currentBackground);
   const [imagesData, setImagesData] = useState([]);
@@ -76,15 +78,34 @@ function KonvaMain() {
     setCurrentBackground(e.target.currentSrc);
   };
 
+  //download created canvas
+
+  const downloadURI = (uri, name) => {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleExport = () => {
+    const uri = stageRef.current.toDataURL();
+    console.log(uri);
+    downloadURI(uri, "stage-postcard.png");
+  };
+
   return (
     <div>
       <h5>Canvas</h5>
+      <button onClick={handleExport}>DOWNLOAAA</button>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <BgOptionControls pickBg={changeBgHandler} />
           <ImageOptionControls pickImage={addStickerToPanel} />
         </div>
         <Stage
+          ref={stageRef}
           width={600}
           height={400}
           onClick={canvasClickHandler}
@@ -124,7 +145,7 @@ function KonvaMain() {
             })}
           </Layer>
         </Stage>
-        <TextOptionForm addNewText={setTextData}/>
+        <TextOptionForm addNewText={setTextData} />
       </div>
     </div>
   );
