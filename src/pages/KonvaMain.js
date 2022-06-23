@@ -5,8 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { backgroundImg1 } from "../assets";
 import {
-  BgOptionControls,
-  ImageOptionControls,
+  ImageControls,
   StickerItem,
   TextItem,
   TextOptionForm,
@@ -59,10 +58,7 @@ function KonvaMain() {
     <div>
       <h5>Canvas</h5>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <BgOptionControls pickBg={changeBgHandler} />
-          <ImageOptionControls pickImage={addStickerToPanel} />
-        </div>
+        <ImageControls pickBg={changeBgHandler} pickImage={addStickerToPanel} />
         <Stage
           width={600}
           height={400}

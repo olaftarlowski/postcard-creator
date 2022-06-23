@@ -1,12 +1,46 @@
 import { v4 as uuidv4 } from "uuid";
-import { star, plus, doge, backgroundImg1, backgroundImg2 } from "../assets";
+import {
+  star,
+  plus,
+  doge,
+  emoji,
+  laptop,
+  postcard,
+  sticker,
+  backgroundImg1,
+  backgroundImg2,
+} from "../assets";
 
 export const stickersData = [
+  {
+    id: uuidv4(),
+    url: sticker,
+    width: 60,
+    alt: "sticker",
+  },
   {
     id: uuidv4(),
     url: star,
     width: 60,
     alt: "star",
+  },
+  {
+    id: uuidv4(),
+    url: doge,
+    width: 60,
+    alt: "doge",
+  },
+  {
+    id: uuidv4(),
+    url: emoji,
+    width: 60,
+    alt: "emoji",
+  },
+  {
+    id: uuidv4(),
+    url: postcard,
+    width: 60,
+    alt: "postcard",
   },
   {
     id: uuidv4(),
@@ -16,9 +50,9 @@ export const stickersData = [
   },
   {
     id: uuidv4(),
-    url: doge,
+    url: laptop,
     width: 60,
-    alt: "doge",
+    alt: "laptop",
   },
 ];
 
