@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { createRef, useCallback, useState } from "react";
 import { Image as KonvaImage, Layer, Stage } from "react-konva";
 import useImage from "use-image";
@@ -14,6 +15,7 @@ import { TEXTS } from "../components/stickers.data";
 import { KonvaMainWrapper } from "../components/styled-components";
 
 function KonvaMain() {
+  const stageRef = useRef(null);
   const [currentBackground, setCurrentBackground] = useState(backgroundImg1);
   const [background] = useImage(currentBackground);
   const [imagesData, setImagesData] = useState([]);
@@ -53,6 +55,23 @@ function KonvaMain() {
 
   const changeBgHandler = (e) => {
     setCurrentBackground(e.target.currentSrc);
+  };
+
+  //download created canvas
+
+  const downloadURI = (uri, name) => {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleExport = () => {
+    const uri = stageRef.current.toDataURL();
+    console.log(uri);
+    downloadURI(uri, "stage-postcard.png");
   };
 
   return (
@@ -122,6 +141,7 @@ function KonvaMain() {
         <div className="form-column-headline">
           <h1>CDESIGNER</h1>
           <p>Go back to the website</p>
+          <button onClick={handleExport}>DOWNLOAAA</button>
         </div>
         <div>
           <h4>Custom postcard</h4>
