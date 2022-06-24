@@ -15,7 +15,7 @@ export const stickersData = [
   {
     id: uuidv4(),
     url: sticker,
-    width: 60,
+    width: 140,
     alt: "sticker",
   },
   {
@@ -39,7 +39,7 @@ export const stickersData = [
   {
     id: uuidv4(),
     url: postcard,
-    width: 60,
+    width: 140,
     alt: "postcard",
   },
   {
@@ -51,7 +51,7 @@ export const stickersData = [
   {
     id: uuidv4(),
     url: laptop,
-    width: 60,
+    width: 140,
     alt: "laptop",
   },
 ];
@@ -70,9 +70,6 @@ export const backgroundData = [
     alt: "sleeping cat",
   },
 ];
-
-//change to state?
-export const cancelImgSize = 24;
 
 export const TEXTS = [
   {

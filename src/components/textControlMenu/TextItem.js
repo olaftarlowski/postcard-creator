@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Text as KonvaText, Group, Transformer } from "react-konva";
-import { useHoverDirty, useLongPress } from "react-use";
 import { CloseButton } from "../";
 
 const TextItem = ({ text, onDelete, isSelected, onChange, onSelect }) => {
@@ -10,28 +9,15 @@ const TextItem = ({ text, onDelete, isSelected, onChange, onSelect }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
 
-  const isHovered = useHoverDirty(textRef);
-
-  const onLongPress = () => {
-    setShowDeleteButton(true);
-  };
-
-  const longPressEvent = useLongPress(onLongPress, { delay: 200 });
-
   useEffect(() => {
-    if (isHovered) {
-      setShowDeleteButton(true);
-    } else {
-      setTimeout(() => {
-        setShowDeleteButton(false);
-      }, 2000);
-    }
-
     if (isSelected) {
+      setShowDeleteButton(true);
       transformRef.current.nodes([textRef.current]);
       transformRef.current.getLayer().batchDraw();
+    } else {
+      setShowDeleteButton(false);
     }
-  }, [isHovered, isSelected]);
+  }, [isSelected]);
 
   return (
     <>
@@ -40,18 +26,21 @@ const TextItem = ({ text, onDelete, isSelected, onChange, onSelect }) => {
         onDragStart={() => {
           setIsDragging(true);
         }}
-        onDragEnd={(e) => {
-          text.x = e.target.x();
-          text.y = e.target.y();
+        onDragEnd={(event) => {
+          text.x = event.target.x();
+          text.y = event.target.y();
           setIsDragging(false);
         }}
-        {...longPressEvent}
         onClick={onSelect}
         onTap={onSelect}
+        onTransformStart={() => {
+          setShowDeleteButton(false);
+        }}
         onTransformEnd={(e) => {
           const node = textRef.current;
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
+
           node.scaleX(1);
           node.scaleY(1);
           onChange({

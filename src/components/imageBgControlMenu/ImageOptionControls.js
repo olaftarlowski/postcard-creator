@@ -13,8 +13,6 @@ const ImageOptionControls = ({ pickImage }) => {
               pickImage({
                 src: sticker.url,
                 width: sticker.width,
-                x: 100,
-                y: 100,
               });
             }}
           >

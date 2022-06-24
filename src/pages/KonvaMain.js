@@ -12,7 +12,7 @@ import {
   TextItem,
   TextOptionForm,
 } from "../components";
-import { TEXTS } from "../components/stickers.data";
+// import { TEXTS } from "../components/stickers.data";
 import { KonvaMainWrapper } from "../components/styled-components";
 
 function KonvaMain() {
@@ -20,8 +20,8 @@ function KonvaMain() {
   const [currentBackground, setCurrentBackground] = useState(backgroundImg1);
   const [background] = useImage(currentBackground);
   const [imagesData, setImagesData] = useState([]);
+  const [textData, setTextData] = useState([]);
   const [selectedID, setSelectedID] = useState(null);
-  const [textData, setTextData] = useState(TEXTS);
 
   const addStickerToPanel = ({ src, width, x, y }) => {
     setImagesData((currentImages) => [

@@ -1,28 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Image as KonvaImage, Group, Transformer } from "react-konva";
 import useImage from "use-image";
-import { useHoverDirty, useLongPress } from "react-use";
 import { CloseButton } from "../";
 
 const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
   const imageRef = useRef(null);
   const transformRef = useRef();
 
-  const isHovered = useHoverDirty(imageRef);
-
   const [stickerImage] = useImage(image.src);
   // const [deleteImage] = useImage(cancel);
 
   const [showDeleteButton, setShowDeleteButton] = useState(false);
 
-  const onLongPress = () => {
-    setShowDeleteButton(true);
-  };
-
   image.resetButtonRef.current = () => {
     setShowDeleteButton(false);
   };
-  const longPressEvent = useLongPress(onLongPress, { delay: 200 });
+
   const [isDragging, setIsDragging] = useState(false);
 
   const stickerHeight = stickerImage
@@ -30,50 +23,35 @@ const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
     : 0;
 
   useEffect(() => {
-    if (isHovered) {
-      setShowDeleteButton(true);
-    } else {
-      setTimeout(() => {
-        setShowDeleteButton(false);
-      }, 2000);
-    }
-
     if (isSelected) {
+      setShowDeleteButton(true);
       transformRef.current.nodes([imageRef.current]);
       transformRef.current.getLayer().batchDraw();
+    } else {
+      setShowDeleteButton(false);
     }
-  }, [isHovered, isSelected]);
+  }, [isSelected]);
+
+  console.log(image);
 
   return (
-    <Group
-      draggable
-      //   x={image.x}
-      //   y={image.y}
-      onDragStart={() => setIsDragging(true)}
-      onDragEnd={(event) => {
-        setIsDragging(false);
-        image.x = event.target.x();
-        image.y = event.target.y();
-      }}
-    >
-      <KonvaImage
-        ref={imageRef}
-        width={image.width}
-        height={stickerHeight}
-        image={stickerImage}
-        {...longPressEvent}
+    <>
+      <Group
+        draggable
+        //   x={image.x}
+        //   y={image.y}
+        onDragStart={() => setIsDragging(true)}
+        onDragEnd={(event) => {
+          image.x = event.target.x();
+          image.y = event.target.y();
+          setIsDragging(false);
+        }}
         onClick={onSelect}
         onTap={onSelect}
         onTransformEnd={(e) => {
-          // transformer is changing scale of the node
-          // and NOT its width or height
-          // but in the store we have only width and height
-          // to match the data better we will reset scale on transform end
           const node = imageRef.current;
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
-
-          // we will reset it back
           node.scaleX(1);
           node.scaleY(1);
           onChange({
@@ -85,21 +63,53 @@ const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
             height: Math.max(node.height() * scaleY),
           });
         }}
-      />
+      >
+        <KonvaImage
+          draggable
+          ref={imageRef}
+          width={image.width}
+          height={stickerHeight}
+          image={stickerImage}
+          x={image.x}
+          y={image.y}
+          // width={text.width}
+          // height={text.height}
+          onDragStart={() => {
+            setIsDragging(true);
+          }}
+          onDragEnd={(e) => {
+            image.x = e.target.x();
+            image.y = e.target.y();
+            setIsDragging(false);
+          }}
+        />
+        {showDeleteButton && !isDragging && (
+          <CloseButton
+            onDelete={onDelete}
+            offsetX={image.x}
+            offsetY={image.y}
+          />
+        )}
+      </Group>
       {isSelected && (
         <Transformer
           ref={transformRef}
+          enabledAnchors={[
+            "top-left",
+            "top-right",
+            "bottom-left",
+            "bottom-right",
+          ]}
           boundBoxFunc={(oldBox, newBox) => {
             // limit resize
-            if (newBox.width < 5 || newBox.height < 5) {
+            if (newBox.width < 10 || newBox.height < 10) {
               return oldBox;
             }
             return newBox;
           }}
         />
       )}
-      {showDeleteButton && !isDragging && <CloseButton onDelete={onDelete} />}
-    </Group>
+    </>
   );
 };
 

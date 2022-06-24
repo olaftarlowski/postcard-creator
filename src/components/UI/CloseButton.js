@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { Image as KonvaImage } from "react-konva";
 import useImage from "use-image";
 
 import { cancel } from "../../assets";
-import { cancelImgSize } from "../stickers.data";
 
 const CloseButton = ({ offsetX, offsetY, onDelete }) => {
   const [deleteImage] = useImage(cancel);
+  const [cancelImgSize] = useState(24);
+
+  console.log(offsetX, offsetY);
 
   return (
     <KonvaImage
