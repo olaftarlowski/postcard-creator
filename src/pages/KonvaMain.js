@@ -12,7 +12,6 @@ import {
   TextItem,
   TextOptionForm,
 } from "../components";
-// import { TEXTS } from "../components/stickers.data";
 import { KonvaMainWrapper } from "../components/styled-components";
 
 function KonvaMain() {

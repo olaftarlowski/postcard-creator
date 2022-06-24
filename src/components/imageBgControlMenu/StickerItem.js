@@ -32,8 +32,6 @@ const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
     }
   }, [isSelected]);
 
-  console.log(image);
-
   return (
     <>
       <Group

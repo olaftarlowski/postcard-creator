@@ -8,8 +8,6 @@ const CloseButton = ({ offsetX, offsetY, onDelete }) => {
   const [deleteImage] = useImage(cancel);
   const [cancelImgSize] = useState(24);
 
-  console.log(offsetX, offsetY);
-
   return (
     <KonvaImage
       onTouchStart={onDelete}
