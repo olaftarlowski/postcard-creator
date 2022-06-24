@@ -38,16 +38,6 @@ const FormWrapper = styled.form`
       border: 2px solid #232323;
     }
   }
-
-  button {
-    width: 130px;
-    height: 45px;
-    padding: 6px 20px;
-    font-size: 20px;
-    color: white;
-    background-color: #000;
-    cursor: pointer;
-  }
 `;
 
 export default FormWrapper;

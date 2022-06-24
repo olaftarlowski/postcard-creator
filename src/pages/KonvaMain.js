@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { backgroundImg1 } from "../assets";
 import {
+  Button,
   ImageControls,
   StickerItem,
   TextItem,
@@ -140,8 +141,11 @@ function KonvaMain() {
       <div className="form-column">
         <div className="form-column-headline">
           <h1>CDESIGNER</h1>
-          <p>Go back to the website</p>
-          <button onClick={handleExport}>DOWNLOAAA</button>
+          <p>
+            Save your postcard
+            <br /> to desktop
+          </p>
+          <Button primary onClick={handleExport}>Save</Button>
         </div>
         <div>
           <h4>Custom postcard</h4>

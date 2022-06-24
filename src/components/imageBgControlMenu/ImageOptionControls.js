@@ -1,5 +1,5 @@
-import { stickersData } from "./stickers.data";
-import { ImageOptionControlsWrapper } from "./styled-components";
+import { stickersData } from "../stickers.data";
+import { ImageOptionControlsWrapper } from "../styled-components";
 
 const ImageOptionControls = ({ pickImage }) => {
   return (

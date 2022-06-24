@@ -1,6 +1,6 @@
 import React from "react";
-import { BgOptionControls, ImageOptionControls } from "./";
-import { ImageControlsWrapper } from "./styled-components";
+import { BgOptionControls, ImageOptionControls } from "..";
+import { ImageControlsWrapper } from "../styled-components";
 
 const ImageControls = ({ pickBg, pickImage }) => {
   return (

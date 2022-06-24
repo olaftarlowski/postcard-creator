@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Image as KonvaImage, Group, Transformer } from "react-konva";
 import useImage from "use-image";
 import { useHoverDirty, useLongPress } from "react-use";
-import { CloseButton } from "./";
+import { CloseButton } from "../";
 
 const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
   const imageRef = useRef(null);

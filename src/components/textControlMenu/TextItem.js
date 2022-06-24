@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Text as KonvaText, Group, Transformer } from "react-konva";
 import { useHoverDirty, useLongPress } from "react-use";
-import { CloseButton } from "./";
+import { CloseButton } from "../";
 
 const TextItem = ({ text, onDelete, isSelected, onChange, onSelect }) => {
   const textRef = useRef(null);

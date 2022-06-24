@@ -1,5 +1,5 @@
 import React from "react";
-import { RadioInputWrapper } from "./styled-components";
+import { RadioInputWrapper } from "../styled-components";
 
 const RadioInput = React.forwardRef(
   ({ value, label, name, onChange, onBlur }, ref) => {

@@ -1,8 +1,9 @@
-export { default as BgOptionControls } from "./BgOptionControls";
-export { default as CloseButton } from "./CloseButton";
-export { default as ImageControls } from "./ImageControls";
-export { default as ImageOptionControls } from "./ImageOptionControls";
-export { default as RadioInput } from "./RadioInput";
-export { default as StickerItem } from "./StickerItem";
-export { default as TextItem } from "./TextItem";
-export { default as TextOptionForm } from "./TextOptionForm";
+export { default as BgOptionControls } from "./imageBgControlMenu/BgOptionControls";
+export { default as Button } from "./UI/Button";
+export { default as CloseButton } from "./UI/CloseButton";
+export { default as ImageControls } from "./imageBgControlMenu/ImageControls";
+export { default as ImageOptionControls } from "./imageBgControlMenu/ImageOptionControls";
+export { default as RadioInput } from "./textControlMenu/RadioInput";
+export { default as StickerItem } from "./imageBgControlMenu/StickerItem";
+export { default as TextItem } from "./textControlMenu/TextItem";
+export { default as TextOptionForm } from "./textControlMenu/TextOptionForm";

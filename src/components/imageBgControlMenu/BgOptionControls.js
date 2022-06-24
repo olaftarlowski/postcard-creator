@@ -1,5 +1,5 @@
-import { backgroundData } from "./stickers.data";
-import { BgOptionControlsWrapper } from "./styled-components";
+import { backgroundData } from "../stickers.data";
+import { BgOptionControlsWrapper } from "../styled-components";
 
 const BgOptionControls = ({ pickBg }) => {
   return (

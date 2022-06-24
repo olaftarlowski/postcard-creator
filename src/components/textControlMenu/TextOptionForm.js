@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-import { RadioInput } from "../components";
-import { COLOR_INPUTS, FONTS } from "./stickers.data";
-import { FormWrapper } from "./styled-components";
+import { Button, RadioInput } from "../";
+import { COLOR_INPUTS, FONTS } from "../stickers.data";
+import { FormWrapper } from "../styled-components";
 
 const TextOptionForm = ({ addNewText }) => {
   const {
@@ -53,7 +53,7 @@ const TextOptionForm = ({ addNewText }) => {
             );
           })}
         </div>
-        <button type="submit">Add</button>
+        <Button type="submit">Add</Button>
       </div>
     </FormWrapper>
   );
