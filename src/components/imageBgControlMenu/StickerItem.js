@@ -8,7 +8,6 @@ const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
   const transformRef = useRef();
 
   const [stickerImage] = useImage(image.src);
-  // const [deleteImage] = useImage(cancel);
 
   const [showDeleteButton, setShowDeleteButton] = useState(false);
 
@@ -35,15 +34,6 @@ const StickerItem = ({ image, onDelete, isSelected, onChange, onSelect }) => {
   return (
     <>
       <Group
-        draggable
-        //   x={image.x}
-        //   y={image.y}
-        onDragStart={() => setIsDragging(true)}
-        onDragEnd={(event) => {
-          image.x = event.target.x();
-          image.y = event.target.y();
-          setIsDragging(false);
-        }}
         onClick={onSelect}
         onTap={onSelect}
         onTransformEnd={(e) => {

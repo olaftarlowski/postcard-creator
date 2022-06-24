@@ -22,15 +22,6 @@ const TextItem = ({ text, onDelete, isSelected, onChange, onSelect }) => {
   return (
     <>
       <Group
-        draggable
-        onDragStart={() => {
-          setIsDragging(true);
-        }}
-        onDragEnd={(event) => {
-          text.x = event.target.x();
-          text.y = event.target.y();
-          setIsDragging(false);
-        }}
         onClick={onSelect}
         onTap={onSelect}
         onTransformStart={() => {
