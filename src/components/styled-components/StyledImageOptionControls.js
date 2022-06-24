@@ -26,6 +26,13 @@ const ImageOptionControlsWrapper = styled.div`
       display: block;
     }
   }
+  @media (max-width: 1130px) {
+    .img-button {
+      img {
+        height: 64px;
+      }
+    }
+  }
 `;
 
 export default ImageOptionControlsWrapper;

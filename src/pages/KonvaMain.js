@@ -77,67 +77,69 @@ function KonvaMain() {
   return (
     <KonvaMainWrapper>
       <ImageControls pickBg={changeBgHandler} pickImage={addStickerToPanel} />
-      <Stage
-        ref={stageRef}
-        width={600}
-        height={400}
-        onClick={canvasClickHandler}
-        onTap={canvasClickHandler}
-      >
-        <Layer>
-          <KonvaImage
-            image={background}
-            height={400}
-            width={600}
-            id="backgroundImage"
-          />
-          {imagesData.map((image, i) => {
-            return (
-              <StickerItem
-                key={image.id}
-                image={image}
-                onDelete={() => {
-                  const newImages = [...imagesData];
-                  newImages.splice(i, 1);
-                  setImagesData(newImages);
-                }}
-                isSelected={image.id === selectedID}
-                onSelect={() => {
-                  setSelectedID(image.id);
-                }}
-                onChange={(newAttrs) => {
-                  const rects = imagesData.slice();
-                  rects[i] = newAttrs;
-                  setImagesData(rects);
-                }}
-              />
-            );
-          })}
-          {textData.map((text, i) => {
-            return (
-              <TextItem
-                key={text.id}
-                text={text}
-                onDelete={() => {
-                  const newTexts = [...textData];
-                  newTexts.splice(i, 1);
-                  setTextData(newTexts);
-                }}
-                isSelected={text.id === selectedID}
-                onSelect={() => {
-                  setSelectedID(text.id);
-                }}
-                onChange={(newAttrs) => {
-                  console.log(newAttrs);
-                  const rects = textData.slice();
-                  rects[i] = newAttrs;
-                  setTextData(rects);
-                }}
-              />
-            );
-          })}
-        </Layer>
-      </Stage>
+      <div className="stage-wrapper">
+        <Stage
+          ref={stageRef}
+          width={600}
+          height={400}
+          onClick={canvasClickHandler}
+          onTap={canvasClickHandler}
+        >
+          <Layer>
+            <KonvaImage
+              image={background}
+              height={400}
+              width={600}
+              id="backgroundImage"
+            />
+            {imagesData.map((image, i) => {
+              return (
+                <StickerItem
+                  key={image.id}
+                  image={image}
+                  onDelete={() => {
+                    const newImages = [...imagesData];
+                    newImages.splice(i, 1);
+                    setImagesData(newImages);
+                  }}
+                  isSelected={image.id === selectedID}
+                  onSelect={() => {
+                    setSelectedID(image.id);
+                  }}
+                  onChange={(newAttrs) => {
+                    const rects = imagesData.slice();
+                    rects[i] = newAttrs;
+                    setImagesData(rects);
+                  }}
+                />
+              );
+            })}
+            {textData.map((text, i) => {
+              return (
+                <TextItem
+                  key={text.id}
+                  text={text}
+                  onDelete={() => {
+                    const newTexts = [...textData];
+                    newTexts.splice(i, 1);
+                    setTextData(newTexts);
+                  }}
+                  isSelected={text.id === selectedID}
+                  onSelect={() => {
+                    setSelectedID(text.id);
+                  }}
+                  onChange={(newAttrs) => {
+                    console.log(newAttrs);
+                    const rects = textData.slice();
+                    rects[i] = newAttrs;
+                    setTextData(rects);
+                  }}
+                />
+              );
+            })}
+          </Layer>
+        </Stage>
+      </div>
       <div className="form-column">
         <div className="form-column-headline">
           <h1>CDESIGNER</h1>
@@ -145,7 +147,9 @@ function KonvaMain() {
             Save your postcard
             <br /> to desktop
           </p>
-          <Button primary onClick={handleExport}>Save</Button>
+          <Button primary onClick={handleExport}>
+            Save
+          </Button>
         </div>
         <div>
           <h4>Custom postcard</h4>

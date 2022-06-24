@@ -38,6 +38,35 @@ const KonvaMainWrapper = styled.div`
     margin: 0 auto;
     box-sizing: initial;
   }
+
+  @media (max-width: 1130px) {
+    flex-direction: unset;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    order: 3;
+
+    .stage-wrapper {
+      order: 2;
+    }
+    .form-column {
+      font-size: 0.8em;
+      h4,
+      p {
+        margin: 10px 0;
+      }
+      .form-column-headline {
+        margin-bottom: 0;
+
+        h1 {
+          font-size: 1.1em;
+        }
+        p {
+          font-size: 1.1em;
+        }
+      }
+    }
+  }
 `;
 
 export default KonvaMainWrapper;
